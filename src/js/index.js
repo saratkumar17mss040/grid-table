@@ -1,84 +1,85 @@
-function fetchAllImagesInfo() {
-	const imagesInfo = [
-		{
-			name: 'Flower',
-			description:
-				'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil ad eos labore.',
-			image:
-				'https://i.picsum.photos/id/166/670/361.jpg?hmac=dj3Hm3xMENN6lm46go2MBUFN6_YpBAmX40RnVTut7KE',
-		},
-		{
-			name: 'Sea',
-			description:
-				'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil ad eos labore.',
-			image:
-				'https://i.picsum.photos/id/305/599/467.jpg?hmac=swl79ssB4no5GnE07hRb9yUO0JoeXJBDtGFfFCVuXBQ',
-		},
-		{
-			name: 'Flower',
-			description:
-				'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil ad eos labore.',
-			image:
-				'https://i.picsum.photos/id/166/670/361.jpg?hmac=dj3Hm3xMENN6lm46go2MBUFN6_YpBAmX40RnVTut7KE',
-		},
-		{
-			name: 'Flower',
-			description:
-				'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil ad eos labore.',
-			image:
-				'https://i.picsum.photos/id/166/670/361.jpg?hmac=dj3Hm3xMENN6lm46go2MBUFN6_YpBAmX40RnVTut7KE',
-		},
-		{
-			name: 'Flower',
-			description:
-				'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil ad eos labore.',
-			image:
-				'https://i.picsum.photos/id/166/670/361.jpg?hmac=dj3Hm3xMENN6lm46go2MBUFN6_YpBAmX40RnVTut7KE',
-		},
-		{
-			name: 'Flower',
-			description:
-				'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil ad eos labore.',
-			image:
-				'https://i.picsum.photos/id/166/670/361.jpg?hmac=dj3Hm3xMENN6lm46go2MBUFN6_YpBAmX40RnVTut7KE',
-		},
-		{
-			name: 'Flower',
-			description:
-				'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil ad eos labore.',
-			image:
-				'https://i.picsum.photos/id/166/670/361.jpg?hmac=dj3Hm3xMENN6lm46go2MBUFN6_YpBAmX40RnVTut7KE',
-		},
-		{
-			name: 'Flower',
-			description:
-				'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil ad eos labore.',
-			image:
-				'https://i.picsum.photos/id/166/670/361.jpg?hmac=dj3Hm3xMENN6lm46go2MBUFN6_YpBAmX40RnVTut7KE',
-		},
-		{
-			name: 'Flower',
-			description:
-				'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil ad eos labore.',
-			image:
-				'https://i.picsum.photos/id/166/670/361.jpg?hmac=dj3Hm3xMENN6lm46go2MBUFN6_YpBAmX40RnVTut7KE',
-		},
-		{
-			name: 'Flower',
-			description:
-				'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil ad eos labore.',
-			image:
-				'https://i.picsum.photos/id/166/670/361.jpg?hmac=dj3Hm3xMENN6lm46go2MBUFN6_YpBAmX40RnVTut7KE',
-		},
-	];
-	return imagesInfo;
+async function fetchAllImagesInfo() {
+	const mockyURl =
+		'http://run.mocky.io/v3/6f7a76ed-d6f5-4b54-be23-bf9a141c982a';
+
+	// fetch(mockyURl)
+	// 	.then((response) => response.json())
+	// 	.then((data) => {
+	// 		console.log(data);
+	// 	}).catch(err => console.log(err));
+
+	// try {
+	// 	const data = (async () => {
+	// 		const mockyRes = await fetch(mockyURl);
+	// 		const data = await mockyRes.json();
+	// 		return data;
+	// 		console.log(data);
+	// 	});
+	// }
+	// catch (err) {
+	// 	alert('Error while fetching the images info', err);
+	// }
+
+	const mockyData = await fetch(mockyURl)
+		.then((res) => res.json())
+		.then((data) => {
+			return data;
+		})
+		.catch((err) => {
+			alert('Error while fetching the images info', err);
+		});
+
+	let imagesUrl = [];
+	let imagePosition = 0;
+
+	for (let { image } of mockyData) {
+		imagesUrl.push(image);
+	}
+
+	try {
+		let actualImagesUrl = await Promise.all(
+			imagesUrl.map(async (url) => {
+				const res = await fetch(url);
+				const data = await res.url;
+				return data;
+			})
+		);
+		console.log(actualImagesUrl);
+		for (let imageData of mockyData) {
+			console.log(imageData);
+			imageData.image = actualImagesUrl[imagePosition];
+			imagePosition += 1;
+		}
+		console.log(mockyData);
+		return mockyData;
+	} catch (error) {
+		alert('Error while fetching the actualImagesUrl', err);
+	}
 }
+
+const imagesInfo = fetchAllImagesInfo();
 
 $('.product_table_container').hide();
 
+// if (localStorage.getItem('currentItem') !== 'table') {
+// }
+
 let currentView = 'grid';
+// localStorage.setItem('currentView', currentView);
+
+// if (
+// 	localStorage.getItem('currentView') === 'grid' ||
+// 	!localStorage.getItem('currentView')
+// ) {
+// 	currentView === 'grid';
+// } else {
+// 	currentView = 'table';
+// }
+
+// let currentView = localStorage.getItem('currentView');
 
 // implement toggler - grid / table view
+
 
 $('.grid_view_option').click(function (e) {
 	e.preventDefault();
@@ -92,6 +93,8 @@ $('.grid_view_option').click(function (e) {
 $('.table_view_option').click(function (e) {
 	e.preventDefault();
 	currentView = 'table';
+	// localStorage.setItem('currentView', currentView);
+	// currentView = localStorage.setItem('currentView', 'table');
 	$('.table_view_option').css('text-decoration', 'underline');
 	$('.grid_view_option').css('text-decoration', 'none');
 	$('.product_grid_container').hide();
@@ -144,7 +147,6 @@ $('.search_input').on('input', function () {
 });
 
 $(function () {
-
 	$('table').tablesorter({
 		headers: {
 			'.image_head, .description_head': {

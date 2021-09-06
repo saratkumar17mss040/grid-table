@@ -172,9 +172,9 @@ tr {
 	padding: 0rem;
 }
 
-.product_name, .product_table_description {
+/* .product_name, .product_table_description {
 	height: 100px !important;
-}
+} */
 
 .product_row {
 	/* margin: rem; */
