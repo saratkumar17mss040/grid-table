@@ -74,6 +74,8 @@ function fetchAllImagesInfo() {
 	return imagesInfo;
 }
 
+$('.product_table_container').hide();
+
 let currentView = 'grid';
 
 // implement toggler - grid / table view
@@ -100,6 +102,12 @@ $('.table_view_option').click(function (e) {
 
 // console.log(($('.product_container .product_text')[0].parent()));
 
+// on keypress event on input
+
+$('form').keypress(function (event) {
+	return event.keyCode != 13;
+});
+
 // implement search which filters the data
 
 $('.search_input').on('input', function () {
@@ -112,24 +120,48 @@ $('.search_input').on('input', function () {
 			console.log(searchValue, 113);
 			console.log(currentProductText, 114);
 			if (currentProductText.indexOf(searchValue) === -1) {
+				// currentProduct.parent().hide() not working here
 				$($('.product_container .product_text')[i]).parent().hide();
 			} else {
 				$($('.product_container .product_text')[i]).parent().show();
 			}
 		}
-    }
+	} else {
+		let products = $('.product_table_container .product_name');
+		for (let i = 0; i < products.length; i++) {
+			let currentProduct = products[i];
+			let currentProductText = currentProduct.textContent.toLowerCase();
+			console.log(searchValue, 113);
+			console.log(currentProductText, 114);
+			if (currentProductText.indexOf(searchValue) === -1) {
+				// currentProduct.parent().hide() not working here
+				$($('.product_table_container .product_name')[i]).parent().hide();
+			} else {
+				$($('.product_table_container .product_name')[i]).parent().show();
+			}
+		}
+	}
 });
 
-//  // find all the divs with product_container
-//         let productContainers = $('.product_container');
-//             // loop through all the divs
-//         for (let i = 0; i < productContainers.length; i++) {
-//             // select the product_text - p
-//             let currentProductContainer = productContainers[i];
-//             let currentProductText = productContainers[i];
-//         }
-//                     // compare the text with search_Value
-//                     // if it matches
-//                         // do nothing
-//                     // else
-//                         // remove the current product_container
+$(function () {
+
+	$('table').tablesorter({
+		headers: {
+			'.image_head, .description_head': {
+				sorter: false,
+			},
+			1: { sortInitialOrder: 'asc' },
+		},
+		// third click on the header will reset column to default - unsorted
+		sortReset: true,
+		// Resets the sort direction so that clicking on an unsorted column will sort in the sortInitialOrder direction.
+		sortRestart: true,
+		sortInitialOrder: 'asc',
+		cancelSelection: true,
+		// add tabindex to header for keyboard accessibility
+		// the original sort order is maintained
+		sortStable: false,
+		tabIndex: true,
+		ignoreCase: true,
+	});
+});

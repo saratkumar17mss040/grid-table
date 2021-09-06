@@ -5,7 +5,6 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Grid | Table</title>
-		<link rel="stylesheet" href="./styles/styles.css" />
 		<link
 			rel="stylesheet"
 			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
@@ -18,6 +17,19 @@
 			integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
 			crossorigin="anonymous"
 		></script>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.3/css/theme.default.min.css"
+		/>
+		<link rel="stylesheet" href="./styles/styles.css" />
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.3/js/jquery.tablesorter.min.js"></script>
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.3/js/jquery.tablesorter.widgets.min.js"
+			integrity="sha512-dj/9K5GRIEZu+Igm9tC16XPOTz0RdPk9FGxfZxShWf65JJNU2TjbElGjuOo3EhwAJRPhJxwEJ5b+/Ouo+VqZdQ=="
+			crossorigin="anonymous"
+			referrerpolicy="no-referrer"
+		></script>
+		<!-- <script src="https://cdn.jsdelivr.net/npm/tablesorter@2.31.3/dist/js/jquery.tablesorter.combined.min.js"></script> -->
 	</head>
 	<body>
 		<form class="search_form">
@@ -116,61 +128,113 @@
 			</div>
 		</div>
 
-		<table class="product_table_container">
-			<thead>
-				<tr class="product_table_head">
-					<th>Image</th>
-					<th>
-						Name
-						<img width="5px" src="../src/arrows.svg" alt="Arrow" />
-						<!-- <span class="arrow"> </span> -->
-					</th>
-					<th>Description</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr class="product_row">
-					<td>
-						<img class="product_table_image" src="../sea.jpg" alt="Sea" />
-					</td>
-					<td>Sea</td>
-					<td class="product_table_description">
-						Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores
-						voluptates deserunt accusantium minus.
-					</td>
-				</tr>
-				<tr class="product_row">
-					<td>
-						<img class="product_table_image" src="../sea.jpg" alt="Sea" />
-					</td>
-					<td>Sea</td>
-					<td class="product_table_description">
-						Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores
-						voluptates deserunt accusantium minus.
-					</td>
-				</tr>
-				<tr class="product_row">
-					<td>
-						<img class="product_table_image" src="../flower.jpg" alt="Sea" />
-					</td>
-					<td>Sea</td>
-					<td class="product_table_description">
-						Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores
-						voluptates deserunt accusantium minus.
-					</td>
-				</tr>
-				<tr class="product_row">
-					<td>
-						<img class="product_table_image" src="../tower.jpg" alt="Sea" />
-					</td>
-					<td>Sea</td>
-					<td class="product_table_description">
-						Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores
-						voluptates deserunt accusantium minus.
-					</td>
-				</tr>
-			</tbody>
-		</table>
+		<div id="table" class="table_container">
+			<table class="product_table_container">
+				<thead>
+					<tr class="product_table_head">
+						<th class="image_head">Image</th>
+						<th class="name_head">
+							Name
+							<!-- <img width="5px" src="../src/arrows.svg" alt="Arrow" /> -->
+							<!-- <span class="arrow"> </span> -->
+						</th>
+						<th class="description_head">Description</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr class="product_row">
+						<td>
+							<img class="product_table_image" src="../sea.jpg" alt="Sea" />
+						</td>
+						<td class="product_name">Sea</td>
+						<td class="product_table_description">
+							Lorem ipsum dolor sit amet consectetur adipisicing elit.
+							Asperiores voluptates deserunt accusantium minus.
+						</td>
+					</tr>
+					<tr class="product_row">
+						<td>
+							<img class="product_table_image" src="../sea.jpg" alt="Sea" />
+						</td>
+						<td class="product_name">Sea</td>
+						<td class="product_table_description">
+							Lorem ipsum dolor sit amet consectetur adipisicing elit.
+							Asperiores voluptates deserunt accusantium minus.
+						</td>
+					</tr>
+					<tr class="product_row">
+						<td>
+							<img class="product_table_image" src="../sea.jpg" alt="Sea" />
+						</td>
+						<td class="product_name">Sea</td>
+						<td class="product_table_description">
+							Lorem ipsum dolor sit amet consectetur adipisicing elit.
+							Asperiores voluptates deserunt accusantium minus.
+						</td>
+					</tr>
+					<tr class="product_row">
+						<td>
+							<img class="product_table_image" src="../sea.jpg" alt="Sea" />
+						</td>
+						<td class="product_name">E</td>
+						<td class="product_table_description">
+							Lorem ipsum dolor sit amet consectetur adipisicing elit.
+							Asperiores voluptates deserunt accusantium minus.
+						</td>
+					</tr>
+					<tr class="product_row">
+						<td>
+							<img class="product_table_image" src="../flower.jpg" alt="Sea" />
+						</td>
+						<td class="product_name">Sea</td>
+						<td class="product_table_description">
+							Lorem ipsum dolor sit amet consectetur adipisicing elit.
+							Asperiores voluptates deserunt accusantium minus.
+						</td>
+					</tr>
+					<tr class="product_row">
+						<td>
+							<img class="product_table_image" src="../sea.jpg" alt="Sea" />
+						</td>
+						<td class="product_name">Sea</td>
+						<td class="product_table_description">
+							Lorem ipsum dolor sit amet consectetur adipisicing elit.
+							Asperiores voluptates deserunt accusantium minus.
+						</td>
+					</tr>
+					<tr class="product_row">
+						<td>
+							<img class="product_table_image" src="../sea.jpg" alt="Sea" />
+						</td>
+						<td class="product_name">A</td>
+						<td class="product_table_description">
+							Lorem ipsum dolor sit amet consectetur adipisicing elit.
+							Asperiores voluptates deserunt accusantium minus.
+						</td>
+					</tr>
+					<tr class="product_row">
+						<td>
+							<img class="product_table_image" src="../tower.jpg" alt="Sea" />
+						</td>
+						<td class="product_name">Tower</td>
+						<td class="product_table_description">
+							Lorem ipsum dolor sit amet consectetur adipisicing elit.
+							Asperiores voluptates deserunt accusantium minus.
+						</td>
+					</tr>
+					<tr class="product_row">
+						<td>
+							<img class="product_table_image" src="../tower.jpg" alt="Sea" />
+						</td>
+						<td class="product_name">Alpha</td>
+						<td class="product_table_description">
+							Lorem ipsum dolor sit amet consectetur adipisicing elit.
+							Asperiores voluptates deserunt accusantium minus.
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 		<script src="./js/index.js"></script>
 	</body>
 </html>
