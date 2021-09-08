@@ -29,6 +29,8 @@
 			crossorigin="anonymous"
 			referrerpolicy="no-referrer"
 		></script>
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.7/ScrollMagic.min.js
+"></script>
 	</head>
 	<body>
 		<form class="search_form">
@@ -44,21 +46,27 @@
 			</div>
 		</form>
 
-		<div class="product_grid_container"></div>
+		<section class="dynamic_grid_content">
+			<div class="product_grid_container"></div>
+			<div class="loader"></div>
+		</section>
 
-		<div id="table" class="table_container">
-			<table class="product_table_container">
-				<thead>
-					<tr class="product_table_head">
-						<th class="image_head">Image</th>
-						<th class="name_head">Name</th>
-						<th class="description_head">Description</th>
-					</tr>
-				</thead>
-				<tbody id="product_body_table"></tbody>
-			</table>
-		</div>
-		
+		<section class="dynamic_table_content">
+			<div id="table" class="table_container">
+				<table class="product_table_container">
+					<thead>
+						<tr class="product_table_head">
+							<th class="image_head">Image</th>
+							<th class="name_head">Name</th>
+							<th class="description_head">Description</th>
+						</tr>
+					</thead>
+					<tbody id="product_body_table"></tbody>
+				</table>
+				<div class="loader"></div>
+			</div>
+		</section>
+
 		<script src="./js/index.js"></script>
 	</body>
 </html>

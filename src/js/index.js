@@ -1,21 +1,23 @@
-const mockyURl = 'http://run.mocky.io/v3/6f7a76ed-d6f5-4b54-be23-bf9a141c982a';
+let mockyURl = 'http://run.mocky.io/v3/6f7a76ed-d6f5-4b54-be23-bf9a141c982a';
 let inGridView = true;
 
-function fetchAllImagesInfo() {
-	const productGridContainer = $('.product_grid_container');
+function fetchAllImagesInfo(mockyURl) {
 	const loaderImg = document.createElement('img');
+	const loaderContainer = $('#loader');
 	loaderImg.src = '../src/Hourglass.gif';
-	productGridContainer.append(loaderImg);
+	loaderContainer.append(loaderImg);
+
 	return new Promise((resolve, reject) => {
 		fetch(mockyURl)
 			.then((res) => res.json())
 			.then((data) => {
-				loaderImg.remove();
-				createProductContainersAndAdd(data);
 				resolve(data);
 			})
 			.catch((err) => {
 				console.error(('Error while fetching the images info', err));
+			})
+			.finally(() => {
+				loaderImg.remove();
 			});
 	});
 }
@@ -153,3 +155,57 @@ $(document).ready(function () {
 		ignoreCase: true,
 	});
 });
+
+// init controller
+const gridViewController = new ScrollMagic.Controller();
+const tableViewController = new ScrollMagic.Controller();
+
+
+// build scene
+const dynamicProductContentScene = new ScrollMagic.Scene({
+	triggerElement: '.dynamic_grid_content .loader',
+	triggerHook: 'onEnter',
+})
+	.addTo(gridViewController)
+	.on('enter', function (e) {
+		if (!$('#loader').hasClass('active')) {
+			$('#loader').addClass('active');
+			if (console) {
+				fetchAllImagesInfo(mockyURl)
+					.then((data) => {
+						createProductContainersAndAdd(data);
+					})
+					.catch((err) => {
+						alert(err);
+					});
+			}
+			// "loading" done -> revert to normal state
+			dynamicProductContentScene.update();
+			// make sure the scene gets the new start position
+			$('#loader').removeClass('active');
+		}
+	});
+
+const dynamicTableProductContentScene = new ScrollMagic.Scene({
+	triggerElement: '.dynamic_table_content .loader',
+	triggerHook: 'onEnter',
+})
+	.addTo(tableViewController)
+	.on('enter', function (e) {
+		if (!$('#loader').hasClass('active')) {
+			$('#loader').addClass('active');
+			if (console) {
+				fetchAllImagesInfo(mockyURl)
+					.then((data) => {
+						createTableProductRowAndAdd(data);
+					})
+					.catch((err) => {
+						alert(err);
+					});
+			}
+			// "loading" done -> revert to normal state
+			dynamicTableProductContentScene.update();
+			// make sure the scene gets the new start position
+			$('#loader').removeClass('active');
+		}
+	});

@@ -68,8 +68,8 @@
 	grid-gap: 6.25rem;
 }
 
-.loader {
-	background-image: url('../Hourglass.gif');
+#loader {
+	text-align: center;
 }
 
 .product_container {
